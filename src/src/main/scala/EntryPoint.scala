@@ -1,8 +1,13 @@
+import org.apache.spark
 import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.SQLImplicits
+import org.apache.spark.sql.functions._
 
 /**
   * Created by edwardcannon on 03/08/2016.
   */
+
+
 object EntryPoint {
   def main(args: Array[String]): Unit = {
     val sparkSession = SparkSession.builder.
@@ -11,7 +16,16 @@ object EntryPoint {
       .getOrCreate()
 
     val df = sparkSession.read.option("header", "true").
-      csv("/Users/edwardcannon/Documents/unilever-2016/campaignAnalysis/potnoodlecombined.csv")
-    println(df.head())
+      csv(args(0))
+    println(df.show())
+    df.printSchema()
+    println("Breakdown by campaign")
+    println(df.groupBy("campaign id").count().show())
+    //create temporary view on the table
+    df.createOrReplaceTempView("potnoodle")
+    val df1 = sparkSession.sql("SELECT * FROM potnoodle WHERE CPF > 30")
+    val wikipage = new WikipediaWebScraper()
+    val data = wikipage.extractWebPage("https://en.wikipedia.org/wiki/Panda_cow")
+    println(data)
   }
 }
