@@ -16,6 +16,10 @@ class WebScraper {
     this.doc = Jsoup.connect(url).get();
     this.doc.toString
   }
+
+  def extractLinks(): List[String]={
+    return List("apples", "oranges", "pears")
+  }
 }
 
 class WikipediaWebScraper extends WebScraper {

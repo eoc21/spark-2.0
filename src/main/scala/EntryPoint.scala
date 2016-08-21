@@ -27,5 +27,6 @@ object EntryPoint {
     val wikipage = new WikipediaWebScraper()
     val data = wikipage.extractWebPage("https://en.wikipedia.org/wiki/Panda_cow")
     println(data)
+    print(wikipage.extractLinks())
   }
 }
