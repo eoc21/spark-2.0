@@ -1,5 +1,9 @@
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
+import org.jsoup.select.Elements
+import scala.collection.JavaConversions._
+
 /**
   * Scrapes data from websites
   * Created by edwardcannon on 20/08/2016.
@@ -17,9 +21,11 @@ class WebScraper {
     this.doc.toString
   }
 
-  def extractLinks(): List[String]={
-    return List("apples", "oranges", "pears")
-  }
+  def extractLinks(): List[Elements]={
+    val links: Elements = this.doc.getElementsByTag("a");
+    val ahrefs = List(links)
+    ahrefs
+    }
 }
 
 class WikipediaWebScraper extends WebScraper {
