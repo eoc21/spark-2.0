@@ -25,8 +25,8 @@ object EntryPoint {
     df.createOrReplaceTempView("potnoodle")
     val df1 = sparkSession.sql("SELECT * FROM potnoodle WHERE CPF > 30")
     val wikipage = new WikipediaWebScraper()
+    //Test webpage extraction & extraction of links
     val data = wikipage.extractWebPage("https://en.wikipedia.org/wiki/Panda_cow")
-    println(data)
-    print(wikipage.extractLinks())
+    val links = wikipage.extractLinks()
   }
 }
